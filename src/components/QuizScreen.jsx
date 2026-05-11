@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { getDifficulty, getOperation } from "../lib/difficultyRules.js";
+import { getGrade, getOperation, getTier } from "../lib/gradeRules.js";
 
 const CORRECT_MESSAGES = [
   "잘했어요!",
@@ -17,9 +17,11 @@ export default function QuizScreen({ questions, settings, quizKind = "main", onF
   const currentQuestion = questions[currentIndex];
   const isRetryMode = quizKind === "retryWrong";
   const operation = getOperation(settings.mode);
-  const difficulty = getDifficulty(settings.level);
+  const grade = getGrade(settings.grade);
+  const tier = getTier(settings.tier);
   const correctCount = answers.filter((answer) => answer.isCorrect).length;
-  const progressText = `${isRetryMode ? "다시 풀기" : "문제"} ${currentIndex + 1} / ${questions.length}`;
+  const progressText = `문제 ${currentIndex + 1} / ${questions.length}`;
+  const settingText = `${grade.label} · ${tier.label} · ${isRetryMode ? "다시 풀기" : operation.label}`;
   const isLastQuestion = currentIndex === questions.length - 1;
   const hasCheckedAnswer = feedback?.kind === "correct" || feedback?.kind === "try-again";
 
@@ -47,16 +49,23 @@ export default function QuizScreen({ questions, settings, quizKind = "main", onF
 
     const numericAnswer = Number(trimmedInput);
     const isCorrect = numericAnswer === currentQuestion.answer;
+    const promptText = currentQuestion.questionText.replace(" = ?", "");
     const answerRecord = {
       questionId: currentQuestion.id,
       problem: currentQuestion.questionText,
-      prompt: currentQuestion.prompt,
+      prompt: promptText,
       questionText: currentQuestion.questionText,
+      grade: currentQuestion.grade,
+      tier: currentQuestion.tier,
+      mode: currentQuestion.mode,
+      symbol: currentQuestion.symbol,
       userAnswer: trimmedInput,
       givenAnswer: trimmedInput,
       correctAnswer: currentQuestion.answer,
       answer: currentQuestion.answer,
       explanation: currentQuestion.explanation,
+      standardCodes: currentQuestion.standardCodes,
+      skillName: currentQuestion.skillName,
       isCorrect,
       question: currentQuestion,
     };
@@ -127,7 +136,7 @@ export default function QuizScreen({ questions, settings, quizKind = "main", onF
       <div className="quiz-status">
         <div>
           <p className="screen-kicker">
-            {isRetryMode ? "틀린 문제 다시 풀기" : `${operation.label} · ${difficulty.label}`}
+            {settingText}
           </p>
           <h2 id="quiz-title">
             {isRetryMode ? "천천히 다시 풀어볼까요?" : "빈칸에 들어갈 수는?"}

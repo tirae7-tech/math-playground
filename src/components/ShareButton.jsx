@@ -84,7 +84,7 @@ export default function ShareButton({ settings }) {
           )}
           {qrError && <p className="qr-error">{qrError}</p>}
           <p className="qr-helper">
-            이 QR은 지금 고른 연산과 난이도로 바로 열려요. 배포 주소에서 열면 학생들도 접속할 수 있어요.
+            이 QR은 지금 고른 학년, 수준, 연산으로 바로 열려요. 배포 주소에서 열면 학생들도 접속할 수 있어요.
           </p>
           <input
             className="share-fallback-input"

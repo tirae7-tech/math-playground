@@ -6,46 +6,31 @@
 https://실제배포주소
 ```
 
-## 전체 공유 링크 목록
+## 대표 공유 링크
 
-| 연산 | 난이도 | 공유 링크 |
-| --- | --- | --- |
-| 덧셈 | 쉬움 | `https://실제배포주소/?mode=add&level=easy` |
-| 덧셈 | 보통 | `https://실제배포주소/?mode=add&level=normal` |
-| 덧셈 | 도전 | `https://실제배포주소/?mode=add&level=challenge` |
-| 뺄셈 | 쉬움 | `https://실제배포주소/?mode=subtract&level=easy` |
-| 뺄셈 | 보통 | `https://실제배포주소/?mode=subtract&level=normal` |
-| 뺄셈 | 도전 | `https://실제배포주소/?mode=subtract&level=challenge` |
-| 곱셈 | 쉬움 | `https://실제배포주소/?mode=multiply&level=easy` |
-| 곱셈 | 보통 | `https://실제배포주소/?mode=multiply&level=normal` |
-| 곱셈 | 도전 | `https://실제배포주소/?mode=multiply&level=challenge` |
-| 나눗셈 | 쉬움 | `https://실제배포주소/?mode=divide&level=easy` |
-| 나눗셈 | 보통 | `https://실제배포주소/?mode=divide&level=normal` |
-| 나눗셈 | 도전 | `https://실제배포주소/?mode=divide&level=challenge` |
-| 섞어서 | 쉬움 | `https://실제배포주소/?mode=mix&level=easy` |
-| 섞어서 | 보통 | `https://실제배포주소/?mode=mix&level=normal` |
-| 섞어서 | 도전 | `https://실제배포주소/?mode=mix&level=challenge` |
+| 용도 | 링크 |
+| --- | --- |
+| 1학년 기초 섞어서 | `https://실제배포주소/?grade=1&tier=low&mode=mix` |
+| 2학년 표준 곱셈 | `https://실제배포주소/?grade=2&tier=middle&mode=multiply` |
+| 3학년 표준 나눗셈 | `https://실제배포주소/?grade=3&tier=middle&mode=divide` |
+| 4학년 도전 섞어서 | `https://실제배포주소/?grade=4&tier=high&mode=mix` |
+| 5학년 표준 혼합 연습 | `https://실제배포주소/?grade=5&tier=middle&mode=mix` |
+| 6학년 도전 혼합 연습 | `https://실제배포주소/?grade=6&tier=high&mode=mix` |
 
-## 대표 공유 링크 정리
+## 부모님 추천 링크
 
-### 인스타 프로필용 대표 링크
+- 1학년 기초 섞어서: `https://실제배포주소/?grade=1&tier=low&mode=mix`
+- 2학년 표준 곱셈: `https://실제배포주소/?grade=2&tier=middle&mode=multiply`
+- 3학년 표준 섞어서: `https://실제배포주소/?grade=3&tier=middle&mode=mix`
 
-- 섞어서 쉬움: `https://실제배포주소/?mode=mix&level=easy`
+## 선생님 추천 링크
 
-### 부모님 추천 링크
+- 3학년 표준 나눗셈: `https://실제배포주소/?grade=3&tier=middle&mode=divide`
+- 5학년 표준 혼합 연습: `https://실제배포주소/?grade=5&tier=middle&mode=mix`
+- 6학년 도전 혼합 연습: `https://실제배포주소/?grade=6&tier=high&mode=mix`
 
-- 섞어서 쉬움: `https://실제배포주소/?mode=mix&level=easy`
-- 덧셈 쉬움: `https://실제배포주소/?mode=add&level=easy`
-- 곱셈 보통: `https://실제배포주소/?mode=multiply&level=normal`
+## QR코드 추천 링크
 
-### 선생님 추천 링크
-
-- 섞어서 보통: `https://실제배포주소/?mode=mix&level=normal`
-- 곱셈 보통: `https://실제배포주소/?mode=multiply&level=normal`
-- 나눗셈 보통: `https://실제배포주소/?mode=divide&level=normal`
-
-### QR코드 추천 링크
-
-- 섞어서 쉬움: `https://실제배포주소/?mode=mix&level=easy`
-- 곱셈 보통: `https://실제배포주소/?mode=multiply&level=normal`
-- 나눗셈 보통: `https://실제배포주소/?mode=divide&level=normal`
+- 첫 체험용: `https://실제배포주소/?grade=1&tier=low&mode=mix`
+- 구구단 연습용: `https://실제배포주소/?grade=2&tier=middle&mode=multiply`
+- 혼합계산 연습용: `https://실제배포주소/?grade=5&tier=middle&mode=mix`

@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import StartScreen from "./components/StartScreen.jsx";
 import QuizScreen from "./components/QuizScreen.jsx";
 import ResultScreen from "./components/ResultScreen.jsx";
-import { normalizeLevel, normalizeMode } from "./lib/difficultyRules.js";
+import { normalizeGrade, normalizeModeForGrade, normalizeTier } from "./lib/gradeRules.js";
 import { generateQuiz } from "./lib/problemGenerator.js";
 import { buildShareUrl, readSettingsFromSearch } from "./lib/shareSettings.js";
 
@@ -23,9 +23,11 @@ export default function App() {
   }, [screen, settings]);
 
   function startQuiz(nextSettings = settings) {
+    const grade = normalizeGrade(nextSettings.grade);
     const quizSettings = {
-      mode: normalizeMode(nextSettings.mode),
-      level: normalizeLevel(nextSettings.level),
+      grade,
+      tier: normalizeTier(nextSettings.tier),
+      mode: normalizeModeForGrade(nextSettings.mode, grade),
     };
 
     setSettings(quizSettings);
@@ -54,6 +56,8 @@ export default function App() {
 
     return {
       id: answer.questionId ?? `retry-${index}`,
+      grade: answer.grade ?? settings.grade,
+      tier: answer.tier ?? settings.tier,
       mode: answer.mode ?? settings.mode,
       symbol: answer.symbol,
       left: answer.left,
@@ -62,6 +66,8 @@ export default function App() {
       prompt: answer.prompt,
       answer: answer.correctAnswer ?? answer.answer,
       explanation: answer.explanation,
+      standardCodes: answer.standardCodes ?? [],
+      skillName: answer.skillName ?? "다시 풀기",
     };
   }
 

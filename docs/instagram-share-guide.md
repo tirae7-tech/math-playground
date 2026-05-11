@@ -15,7 +15,7 @@ https://실제배포주소
 처음 써본다면 아래 링크를 추천해요.
 
 ```txt
-https://실제배포주소/?mode=mix&level=easy
+https://실제배포주소/?grade=1&tier=low&mode=mix
 ```
 
 ## QR코드 문구
@@ -27,7 +27,7 @@ QR코드를 찍고 사칙연산 10문제만 풀어보세요.
 ## 댓글 고정용 문구
 
 ```txt
-바로 해보기: https://실제배포주소/?mode=mix&level=easy
+바로 해보기: https://실제배포주소/?grade=1&tier=low&mode=mix
 
 설치 없음, 로그인 없음, 개인정보 입력 없음.
 아이들이 부담 없이 10문제만 가볍게 풀어볼 수 있어요.

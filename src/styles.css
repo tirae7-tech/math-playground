@@ -113,9 +113,12 @@ input:disabled {
 .start-hero {
   position: relative;
   overflow: hidden;
-  min-height: 214px;
+  min-height: 224px;
   display: grid;
-  align-content: end;
+  align-content: center;
+  justify-items: center;
+  gap: 9px;
+  text-align: center;
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(255, 244, 184, 0.98) 55%, rgba(216, 247, 255, 0.95) 100%);
 }
@@ -127,13 +130,52 @@ input:disabled {
 }
 
 .start-hero::before {
-  top: 18px;
-  left: 18px;
-  width: 68px;
-  height: 34px;
-  border: 2px solid rgba(34, 56, 76, 0.18);
+  display: none;
+}
+
+.hero-meta {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  max-width: 100%;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.hero-brand {
+  position: relative;
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 9px 4px 4px;
+  border: 2px solid #22384c;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.58);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 2px 2px 0 #22384c;
+}
+
+.hero-brand-image {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  border: 2px solid #22384c;
+  border-radius: 50%;
+  background: #fff8d7;
+  object-fit: cover;
+  object-position: center 18%;
+}
+
+.hero-brand-title {
+  overflow: hidden;
+  color: #6b2a22;
+  font-size: 0.92rem;
+  font-weight: 950;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .start-hero::after {
@@ -151,19 +193,27 @@ input:disabled {
 
 .hero-badge {
   position: absolute;
-  top: 18px;
   right: 18px;
+  bottom: 18px;
   z-index: 1;
   display: grid;
-  width: 54px;
-  height: 54px;
+  width: 44px;
+  height: 44px;
   place-items: center;
   border: 2px solid #22384c;
   border-radius: 50%;
   background: #ff8d7a;
   color: #ffffff;
-  font-size: 1.8rem;
+  font-size: 1.42rem;
   font-weight: 900;
+}
+
+.start-hero .screen-kicker {
+  margin: 0;
+  padding: 7px 10px;
+  border: 2px solid rgba(34, 56, 76, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.58);
 }
 
 .start-hero h1,
@@ -224,14 +274,20 @@ input:disabled {
   gap: 12px;
 }
 
+.grade-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .operation-grid {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
 }
 
 .operation-grid .choice-button:last-child {
   grid-column: 1 / -1;
 }
 
+.tier-grid,
 .difficulty-grid {
   grid-template-columns: 1fr;
 }
@@ -259,6 +315,19 @@ input:disabled {
   box-shadow: 4px 4px 0 #22384c;
 }
 
+.choice-button:disabled {
+  opacity: 0.58;
+  background: #edf2f4;
+  box-shadow: 2px 2px 0 #22384c;
+  transform: none;
+}
+
+.choice-button:disabled .choice-symbol,
+.choice-button:disabled .choice-label,
+.choice-button:disabled .choice-helper {
+  color: #647380;
+}
+
 .choice-button:active,
 .primary-action:active,
 .secondary-action:active,
@@ -284,9 +353,47 @@ input:disabled {
   box-shadow: 3px 3px 0 #22384c, inset 0 0 0 4px #ffffff;
 }
 
+.tier-button,
 .difficulty-button {
   min-height: 78px;
   background: #f2fff5;
+}
+
+.grade-button {
+  min-height: 86px;
+}
+
+.operation-grid .choice-button {
+  min-height: 68px;
+  align-content: center;
+  gap: 4px;
+  padding: 10px 6px;
+  box-shadow: 2px 2px 0 #22384c;
+}
+
+.operation-grid .choice-button:hover {
+  box-shadow: 3px 3px 0 #22384c;
+}
+
+.operation-grid .choice-button[data-selected="true"] {
+  box-shadow: 2px 2px 0 #22384c, inset 0 0 0 3px #ffffff;
+}
+
+.operation-grid .choice-symbol {
+  font-size: 1.55rem;
+}
+
+.operation-grid .choice-label {
+  font-size: 0.95rem;
+}
+
+.operation-grid .choice-helper {
+  font-size: 0.72rem;
+  line-height: 1.2;
+}
+
+.operation-grid .choice-button:not(:disabled) .choice-helper {
+  display: none;
 }
 
 .choice-symbol {
@@ -572,6 +679,13 @@ input:disabled {
   font-size: 2rem;
 }
 
+.result-count {
+  margin: 10px 0 0;
+  color: #17324b;
+  font-size: 1.22rem;
+  font-weight: 950;
+}
+
 .star-row {
   margin: 12px 0 0;
   color: #f2a900;
@@ -695,9 +809,22 @@ input:disabled {
 }
 
 .wrong-card-top strong {
+  display: block;
   color: #17324b;
   font-size: 1.12rem;
   line-height: 1.35;
+}
+
+.skill-tag {
+  display: inline-block;
+  margin: 8px 0 0;
+  padding: 5px 8px;
+  border: 1px solid #d7e0e8;
+  border-radius: 999px;
+  background: #fff8d7;
+  color: #52606d;
+  font-size: 0.82rem;
+  font-weight: 900;
 }
 
 .wrong-details {
@@ -743,6 +870,8 @@ input:disabled {
 }
 
 @media (min-width: 480px) {
+  .grade-grid,
+  .tier-grid,
   .difficulty-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }

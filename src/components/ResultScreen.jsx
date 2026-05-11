@@ -1,3 +1,5 @@
+import { getGrade, getOperation, getTier } from "../lib/gradeRules.js";
+
 function getResultSummary(correctCount) {
   if (correctCount === 10) {
     return {
@@ -33,20 +35,31 @@ function getResultSummary(correctCount) {
   };
 }
 
+function getAnswerSkillName(answer) {
+  return answer.skillName ?? answer.question?.skillName ?? "계산 연습";
+}
+
 export default function ResultScreen({ result, onRetry, onRetryWrong, onHome }) {
   const isRetryMode = result.quizKind === "retryWrong";
   const { stars, message } = getResultSummary(result.correctCount);
   const wrongAnswers = result.answers.filter((answer) => !answer.isCorrect);
+  const grade = getGrade(result.settings.grade);
+  const tier = getTier(result.settings.tier);
+  const operation = getOperation(result.settings.mode);
+  const resultTitle = isRetryMode
+    ? `${grade.label} ${tier.label} 다시 풀기 결과`
+    : `${grade.label} ${tier.label} 연습 결과`;
 
   return (
     <section className="screen result-screen" aria-labelledby="result-title">
       <div className="result-hero">
-        <p className="screen-kicker">{isRetryMode ? "다시 풀기 결과" : "연습 끝"}</p>
-        <h2 id="result-title">
+        <p className="screen-kicker">{grade.label} · {tier.label} · {operation.label}</p>
+        <h2 id="result-title">{resultTitle}</h2>
+        <p className="result-count">
           {isRetryMode
             ? `${result.totalCount}문제를 다시 풀었어요`
             : `${result.totalCount}문제 중 ${result.correctCount}문제 성공!`}
-        </h2>
+        </p>
         {isRetryMode ? (
           <div className="retry-summary" aria-label="다시 풀기 결과 요약">
             <div className="retry-stat">
@@ -95,7 +108,10 @@ export default function ResultScreen({ result, onRetry, onRetryWrong, onHome }) 
                 <li className="wrong-card" key={answer.questionId}>
                   <div className="wrong-card-top">
                     <span className="wrong-index">{index + 1}</span>
-                    <strong>{answer.problem ?? answer.questionText ?? `${answer.prompt} = ?`}</strong>
+                    <div>
+                      <strong>{answer.problem ?? answer.questionText ?? `${answer.prompt} = ?`}</strong>
+                      <p className="skill-tag">관련 기능: {getAnswerSkillName(answer)}</p>
+                    </div>
                   </div>
                   <dl className="wrong-details">
                     <div>
