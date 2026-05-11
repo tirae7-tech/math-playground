@@ -12,6 +12,7 @@ export default function QuizScreen({ questions, settings, quizKind = "main", onF
   const [answers, setAnswers] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [feedback, setFeedback] = useState(null);
+  const [isInputFocused, setIsInputFocused] = useState(false);
   const inputRef = useRef(null);
 
   const currentQuestion = questions[currentIndex];
@@ -26,7 +27,13 @@ export default function QuizScreen({ questions, settings, quizKind = "main", onF
   const hasCheckedAnswer = feedback?.kind === "correct" || feedback?.kind === "try-again";
 
   useEffect(() => {
-    inputRef.current?.focus();
+    const canUseKeyboardWithoutCoveringScreen =
+      typeof window !== "undefined" &&
+      window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+    if (canUseKeyboardWithoutCoveringScreen) {
+      inputRef.current?.focus();
+    }
   }, [currentIndex]);
 
   function submitAnswer(event) {
@@ -95,6 +102,7 @@ export default function QuizScreen({ questions, settings, quizKind = "main", onF
     setCurrentIndex(currentIndex + 1);
     setInputValue("");
     setFeedback(null);
+    setIsInputFocused(false);
   }
 
   function updateInputValue(nextValue) {
@@ -123,7 +131,11 @@ export default function QuizScreen({ questions, settings, quizKind = "main", onF
   }
 
   return (
-    <section className="screen quiz-screen" aria-labelledby="quiz-title">
+    <section
+      className="screen quiz-screen"
+      data-keyboard-active={isInputFocused && !hasCheckedAnswer ? "true" : "false"}
+      aria-labelledby="quiz-title"
+    >
       <div className="quiz-topbar">
         <button className="ghost-button" type="button" onClick={onExit}>
           처음으로
@@ -165,6 +177,8 @@ export default function QuizScreen({ questions, settings, quizKind = "main", onF
           value={inputValue}
           disabled={hasCheckedAnswer}
           onChange={(event) => updateInputValue(event.target.value)}
+          onFocus={() => setIsInputFocused(true)}
+          onBlur={() => setIsInputFocused(false)}
           onKeyDown={submitWithEnter}
           aria-describedby={feedback ? "quiz-feedback" : undefined}
         />

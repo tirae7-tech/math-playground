@@ -24,6 +24,7 @@ html {
 body {
   min-width: 320px;
   min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
   background:
     linear-gradient(180deg, #fffdf6 0%, #fff0d5 100%);
@@ -47,6 +48,7 @@ input:disabled {
 .app-shell {
   width: min(100%, 540px);
   min-height: 100vh;
+  min-height: 100dvh;
   margin: 0 auto;
   padding: 14px 14px 28px;
 }
@@ -617,6 +619,87 @@ input:disabled {
   font-size: 2.08rem;
   font-weight: 950;
   text-align: center;
+}
+
+@media (max-width: 560px) {
+  .quiz-screen {
+    min-height: calc(100dvh - 42px);
+    align-content: start;
+  }
+
+  .quiz-topbar {
+    position: sticky;
+    top: 8px;
+    z-index: 5;
+    padding: 2px 0;
+    background: linear-gradient(180deg, #fffdf6 0%, rgba(255, 253, 246, 0.92) 100%);
+  }
+
+  .quiz-screen[data-keyboard-active="true"] {
+    gap: 10px;
+  }
+
+  .quiz-screen[data-keyboard-active="true"] .quiz-topbar {
+    gap: 8px;
+  }
+
+  .quiz-screen[data-keyboard-active="true"] .quiz-topbar .ghost-button,
+  .quiz-screen[data-keyboard-active="true"] .quiz-topbar .progress-pill {
+    min-height: 44px;
+    padding: 8px 10px;
+    font-size: 0.92rem;
+  }
+
+  .quiz-screen[data-keyboard-active="true"] .quiz-status {
+    gap: 7px;
+  }
+
+  .quiz-screen[data-keyboard-active="true"] .screen-kicker {
+    margin-bottom: 2px;
+    font-size: 0.82rem;
+  }
+
+  .quiz-screen[data-keyboard-active="true"] .quiz-status h2 {
+    font-size: 1.18rem;
+  }
+
+  .quiz-screen[data-keyboard-active="true"] .correct-pill {
+    min-height: 42px;
+    padding: 7px 10px;
+    font-size: 0.92rem;
+  }
+
+  .quiz-screen[data-keyboard-active="true"] .question-panel {
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .quiz-screen[data-keyboard-active="true"] .question-text {
+    min-height: 92px;
+    padding: 10px;
+    font-size: 2.35rem;
+  }
+
+  .quiz-screen[data-keyboard-active="true"] .answer-label {
+    font-size: 0.96rem;
+  }
+
+  .quiz-screen[data-keyboard-active="true"] .answer-input {
+    min-height: 58px;
+    padding: 8px 12px;
+    font-size: 1.72rem;
+  }
+
+  .quiz-screen[data-keyboard-active="true"] .primary-action {
+    min-height: 52px;
+    padding: 12px 14px;
+    font-size: 1.02rem;
+  }
+
+  .quiz-screen[data-keyboard-active="true"] .feedback-block {
+    gap: 8px;
+    padding: 12px;
+  }
 }
 
 .feedback-block {
