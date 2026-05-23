@@ -1,30 +1,50 @@
-# 사칙연산 놀이터
+# 초등 연산 놀이터
 
-**사칙연산 놀이터**는 초등학생이 학년과 수준을 선택해 사칙연산 10문제를 풀어보는 Vite + React 정적 웹앱입니다.
+**초등 연산 놀이터**는 초등학생이 학년과 수준을 선택해 사칙연산, 분수, 소수 문제를 10문제씩 풀어보는 Vite + React 정적 웹앱입니다.
 
-브라우저에서 바로 실행되며, 서버 기능, 로그인, 회원가입, 개인정보 입력 없이 사용할 수 있습니다.
+설치 없이 브라우저에서 바로 실행되며, 서버 기능, 로그인, 회원가입, 개인정보 입력 없이 사용할 수 있습니다.
 
 ## 주요 기능
 
 - 1~6학년 선택
 - 기초/표준/도전 수준 선택
-- 연산 선택: 덧셈, 뺄셈, 곱셈, 나눗셈, 섞어서
-- 10문제 랜덤 생성
-- 정답/오답 피드백
+- 연습 모드 선택: 사칙연산, 분수, 소수, 섞어서
+- 학년과 수준에 맞는 10문제 랜덤 생성
+- 정답/오답 즉시 피드백
 - 결과 화면에서 별점과 격려 문구 표시
-- 틀린 문제 복습
+- 틀린 문제 다시 보기
 - 틀린 문제 다시 풀기 모드
 - 설정 공유 URL
 - QR코드 보기
 
-## 학년별 연산 범위
+## 학년별 문제 범위
+
+### 사칙연산
 
 - 1학년: 덧셈, 뺄셈
 - 2학년: 덧셈, 뺄셈, 곱셈
 - 3~4학년: 자연수 덧셈, 뺄셈, 곱셈, 나눗셈
 - 5~6학년: 자연수 사칙계산과 혼합계산
 
-이번 버전에서는 분수와 소수 문제는 제외합니다. 나눗셈은 나머지가 없도록 생성하고, 뺄셈은 답이 0 이상이 되도록 생성합니다.
+나눗셈은 나머지가 없도록 생성하고, 뺄셈은 답이 0 이상이 되도록 생성합니다.
+
+### 분수
+
+- 3학년: 분수 읽기, 크기 비교
+- 4학년: 같은 분모 분수 덧셈/뺄셈
+- 5학년: 약분, 통분, 이분모 분수 덧셈/뺄셈
+- 6학년: 분수 곱셈/나눗셈 기초
+
+분수 정답은 `3/5`처럼 입력할 수 있습니다. 값이 같은 분수도 정답으로 인정합니다.
+
+### 소수
+
+- 3학년: 소수 한 자리 읽기, 크기 비교
+- 4학년: 소수 덧셈/뺄셈
+- 5학년: 소수 곱셈 기초
+- 6학년: 소수 나눗셈 기초
+
+소수 정답은 `0.5`처럼 입력할 수 있습니다.
 
 ## 수준 설명
 
@@ -35,9 +55,9 @@
 ## 공유 URL 예시
 
 ```txt
-/?grade=1&tier=low&mode=mix
-/?grade=2&tier=middle&mode=multiply
-/?grade=3&tier=middle&mode=divide
+/?grade=1&tier=low&mode=arithmetic
+/?grade=3&tier=middle&mode=fraction
+/?grade=4&tier=middle&mode=decimal
 /?grade=5&tier=high&mode=mix
 ```
 
@@ -45,9 +65,11 @@
 
 - `grade`: `1`, `2`, `3`, `4`, `5`, `6`
 - `tier`: `low`, `middle`, `high`
-- `mode`: `add`, `subtract`, `multiply`, `divide`, `mix`
+- `mode`: `arithmetic`, `fraction`, `decimal`, `mix`
 
-잘못된 값이 들어오면 기본값인 `grade=1`, `tier=low`, `mode=mix`가 사용됩니다. 학년에 맞지 않는 연산이 들어오면 `mode=mix`로 처리합니다.
+잘못된 값이 들어오면 기본값인 `grade=1`, `tier=low`, `mode=mix`가 사용됩니다. 1~2학년에서 분수나 소수 모드가 들어오면 학년에 맞게 `mix`로 처리합니다.
+
+기존 공유 URL도 최대한 호환합니다. 예전 `mode=add`, `mode=multiply` 같은 링크는 사칙연산 모드로 처리합니다.
 
 ## 개인정보 안내
 
@@ -96,7 +118,7 @@ npm run preview
 
 ### Vercel
 
-1. GitHub 저장소를 [Vercel](https://vercel.com/)에 연결합니다.
+1. GitHub 저장소를 Vercel에 연결합니다.
 2. Framework Preset은 `Vite` 또는 자동 감지를 사용합니다.
 3. Build Command는 `npm run build`로 설정합니다.
 4. Output Directory는 `dist`로 설정합니다.
@@ -105,14 +127,14 @@ npm run preview
 예시:
 
 ```txt
-https://배포주소.vercel.app/?grade=1&tier=low&mode=mix
-https://배포주소.vercel.app/?grade=3&tier=middle&mode=divide
+https://배포주소.vercel.app/?grade=3&tier=middle&mode=fraction
+https://배포주소.vercel.app/?grade=5&tier=high&mode=mix
 ```
 
 ### Netlify
 
 1. 이 폴더를 GitHub 저장소에 올립니다.
-2. [Netlify](https://www.netlify.com/)에 로그인합니다.
+2. Netlify에 로그인합니다.
 3. `Add new site` 또는 `Import an existing project`를 선택합니다.
 4. GitHub 저장소를 연결합니다.
 5. Build Command는 `npm run build`로 설정합니다.
@@ -122,31 +144,36 @@ https://배포주소.vercel.app/?grade=3&tier=middle&mode=divide
 예시:
 
 ```txt
-https://배포주소.netlify.app/?grade=2&tier=middle&mode=multiply
-https://배포주소.netlify.app/?grade=5&tier=high&mode=mix
+https://배포주소.netlify.app/?grade=4&tier=middle&mode=decimal
+https://배포주소.netlify.app/?grade=6&tier=low&mode=arithmetic
 ```
 
 ### GitHub Pages
 
-GitHub Pages는 저장소 이름이 URL 경로에 포함될 수 있습니다. 이 프로젝트는 `vite.config.js`에서 `base: "./"`를 사용해 하위 경로 배포에도 대응하도록 설정했습니다.
+이 프로젝트는 GitHub Actions 배포 파일을 포함합니다.
 
-GitHub Pages에 배포할 때는 빌드 결과물인 `dist`를 Pages가 읽을 수 있도록 별도 설정하거나, GitHub Actions 배포 흐름을 구성하면 됩니다.
+1. GitHub 저장소의 `Settings`로 이동합니다.
+2. 왼쪽 메뉴에서 `Pages`를 선택합니다.
+3. Source를 `GitHub Actions`로 설정합니다.
+4. `main` 브랜치에 push하면 자동으로 빌드와 배포가 실행됩니다.
+
+저장소 이름이 URL 경로에 포함될 수 있으므로 `vite.config.js`에서 `base: "./"`를 사용해 하위 경로 배포에도 대응합니다.
 
 ## 인스타그램 공유 문구
 
 ### 부모님 대상
 
-설치 없이 바로 열 수 있는 사칙연산 10문제 연습이에요.  
-아이가 학년과 수준을 고르고 덧셈, 뺄셈, 곱셈, 나눗셈을 가볍게 풀어볼 수 있어요.  
+설치 없이 바로 열 수 있는 초등 연산 10문제 연습이에요.  
+아이가 학년과 수준을 고르고 사칙연산, 분수, 소수를 가볍게 풀어볼 수 있어요.  
 로그인이나 이름 입력 없이 부담 없이 사용해보세요.
 
 ### 선생님 대상
 
-수업 전후 짧은 계산 연습용으로 활용할 수 있는 사칙연산 놀이터입니다.  
-학년, 수준, 연산을 고른 뒤 공유 링크나 QR코드로 학생들에게 바로 안내할 수 있어요.  
+수업 전후 짧은 연산 연습용으로 활용할 수 있는 초등 연산 놀이터입니다.  
+학년, 수준, 연습 모드를 고른 뒤 공유 링크나 QR코드로 학생들에게 바로 안내할 수 있어요.  
 개인정보 입력 없이 현재 화면에서만 결과를 확인합니다.
 
 ### 짧은 홍보 문구
 
 학년과 수준을 고르고 10문제만 가볍게!  
-설치 없이 바로 시작하는 사칙연산 놀이터.
+설치 없이 바로 시작하는 초등 연산 놀이터.

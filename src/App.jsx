@@ -90,8 +90,8 @@ export default function App() {
       {screen !== "start" && (
         <header className="app-header app-header--compact">
           <div>
-            <p className="eyebrow">10문제 사칙연산 게임</p>
-            <h1>사칙연산 놀이터</h1>
+            <p className="eyebrow">10문제 연산 게임</p>
+            <h1>초등 연산 놀이터</h1>
           </div>
         </header>
       )}

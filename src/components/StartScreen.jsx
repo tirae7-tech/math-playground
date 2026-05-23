@@ -11,11 +11,7 @@ import {
 import ShareButton from "./ShareButton.jsx";
 
 function getUnavailableOperationMessage(operationId, gradeId) {
-  if (operationId === "multiply" && gradeId === 1) {
-    return "2학년부터";
-  }
-
-  if (operationId === "divide" && gradeId <= 2) {
+  if ((operationId === "fraction" || operationId === "decimal") && gradeId <= 2) {
     return "3학년부터";
   }
 
@@ -48,12 +44,12 @@ export default function StartScreen({ settings, onChange, onStart }) {
             />
             <span className="hero-brand-title">루돌프쌤</span>
           </div>
-          <p className="screen-kicker">10문제 사칙연산 게임</p>
+          <p className="screen-kicker">10문제 연산 게임</p>
         </div>
         <div className="hero-badge" aria-hidden="true">
           +
         </div>
-        <h1 id="start-title">사칙연산 놀이터</h1>
+        <h1 id="start-title">초등 연산 놀이터</h1>
         <p className="screen-copy">학년과 수준을 고르고 10문제를 풀어보세요</p>
       </div>
 
@@ -104,7 +100,7 @@ export default function StartScreen({ settings, onChange, onStart }) {
       <section className="choice-section" aria-labelledby="operation-title">
         <div className="section-heading">
           <span className="step-dot">3</span>
-          <h2 id="operation-title">어떤 연산을 해볼까요?</h2>
+          <h2 id="operation-title">어떤 연습을 해볼까요?</h2>
         </div>
         <div className="choice-grid operation-grid">
           {OPERATIONS.map((item) => {

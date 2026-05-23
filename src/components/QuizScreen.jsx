@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { getGrade, getOperation, getTier } from "../lib/gradeRules.js";
+import { formatAnswerForDisplay, isAnswerCorrect } from "../lib/problemGenerator.js";
 
 const CORRECT_MESSAGES = [
   "잘했어요!",
@@ -25,6 +26,9 @@ export default function QuizScreen({ questions, settings, quizKind = "main", onF
   const settingText = `${grade.label} · ${tier.label} · ${isRetryMode ? "다시 풀기" : operation.label}`;
   const isLastQuestion = currentIndex === questions.length - 1;
   const hasCheckedAnswer = feedback?.kind === "correct" || feedback?.kind === "try-again";
+  const answerHint = currentQuestion?.answerHint ?? "숫자로 답을 써요.";
+  const questionLength = currentQuestion?.questionText.length ?? 0;
+  const questionSize = questionLength > 34 ? "long" : questionLength > 20 ? "medium" : "short";
 
   useEffect(() => {
     const canUseKeyboardWithoutCoveringScreen =
@@ -54,8 +58,7 @@ export default function QuizScreen({ questions, settings, quizKind = "main", onF
       return;
     }
 
-    const numericAnswer = Number(trimmedInput);
-    const isCorrect = numericAnswer === currentQuestion.answer;
+    const isCorrect = isAnswerCorrect(trimmedInput, currentQuestion.answer);
     const promptText = currentQuestion.questionText.replace(" = ?", "");
     const answerRecord = {
       questionId: currentQuestion.id,
@@ -88,7 +91,7 @@ export default function QuizScreen({ questions, settings, quizKind = "main", onF
         : {
             kind: "try-again",
             title: "다시 생각해볼까요?",
-            detail: `괜찮아요, 정답은 ${currentQuestion.answer}예요.`,
+            detail: `괜찮아요, 정답은 ${formatAnswerForDisplay(currentQuestion.answer)}예요.`,
           },
     );
   }
@@ -106,7 +109,7 @@ export default function QuizScreen({ questions, settings, quizKind = "main", onF
   }
 
   function updateInputValue(nextValue) {
-    setInputValue(nextValue.replace(/[^0-9]/g, ""));
+    setInputValue(nextValue.replace(/[^0-9/.,]/g, "").replace(",", "."));
 
     if (feedback?.kind === "notice") {
       setFeedback(null);
@@ -160,19 +163,19 @@ export default function QuizScreen({ questions, settings, quizKind = "main", onF
       </div>
 
       <form className="question-panel" onSubmit={submitAnswer}>
-        <div className="question-text" aria-live="polite">
+        <div className="question-text" data-length={questionSize} aria-live="polite">
           {currentQuestion.questionText}
         </div>
 
         <label className="answer-label" htmlFor="answer-input">
           답을 써 보세요
         </label>
+        <p className="answer-hint">{answerHint}</p>
         <input
           ref={inputRef}
           id="answer-input"
           className="answer-input"
-          inputMode="numeric"
-          pattern="[0-9]*"
+          inputMode={answerHint.includes("분수") ? "text" : "decimal"}
           type="text"
           value={inputValue}
           disabled={hasCheckedAnswer}

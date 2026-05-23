@@ -2,7 +2,9 @@ export const DEFAULT_GRADE = 1;
 export const DEFAULT_TIER = "low";
 export const DEFAULT_MODE = "mix";
 
-export const MODE_IDS = ["add", "subtract", "multiply", "divide", "mix", "mixed"];
+export const PRACTICE_MODE_IDS = ["arithmetic", "fraction", "decimal", "mix"];
+export const ARITHMETIC_MODE_IDS = ["add", "subtract", "multiply", "divide", "mixed"];
+export const MODE_IDS = [...PRACTICE_MODE_IDS, ...ARITHMETIC_MODE_IDS];
 
 export const OPERATION_SYMBOLS = {
   add: "+",
@@ -12,11 +14,17 @@ export const OPERATION_SYMBOLS = {
 };
 
 export const OPERATIONS = [
+  { id: "arithmetic", label: "사칙연산", symbol: "+−×÷", helper: "자연수 계산 연습" },
+  { id: "fraction", label: "분수", symbol: "1/2", helper: "분수 읽기와 계산" },
+  { id: "decimal", label: "소수", symbol: "0.5", helper: "소수 읽기와 계산" },
+  { id: "mix", label: "섞어서", symbol: "★", helper: "학년에 맞게 골고루" },
+];
+
+export const ARITHMETIC_OPERATIONS = [
   { id: "add", label: "덧셈", symbol: "+", helper: "더하기 연습" },
   { id: "subtract", label: "뺄셈", symbol: "-", helper: "빼기 연습" },
   { id: "multiply", label: "곱셈", symbol: "×", helper: "곱하기 연습" },
   { id: "divide", label: "나눗셈", symbol: "÷", helper: "나누기 연습" },
-  { id: "mix", label: "섞어서", symbol: "★", helper: "학년에 맞게 골고루" },
 ];
 
 export const MIXED_OPERATION = {
@@ -29,10 +37,10 @@ export const MIXED_OPERATION = {
 export const GRADES = [
   { id: 1, label: "1학년", helper: "덧셈과 뺄셈 중심" },
   { id: 2, label: "2학년", helper: "구구단까지 차근차근" },
-  { id: 3, label: "3학년", helper: "사칙연산 시작" },
-  { id: 4, label: "4학년", helper: "큰 수 곱셈과 나눗셈" },
-  { id: 5, label: "5학년", helper: "자연수 혼합계산" },
-  { id: 6, label: "6학년", helper: "괄호 포함 혼합계산" },
+  { id: 3, label: "3학년", helper: "분수와 소수 시작" },
+  { id: 4, label: "4학년", helper: "분수와 소수 계산" },
+  { id: 5, label: "5학년", helper: "약분, 통분, 소수 곱셈" },
+  { id: 6, label: "6학년", helper: "분수·소수 나눗셈" },
 ];
 
 export const TIERS = [
@@ -65,6 +73,33 @@ export const GRADE_OPERATION_RULES = {
   6: {
     availableModes: ["add", "subtract", "multiply", "divide", "mix"],
     mixModes: ["add", "subtract", "multiply", "divide", "mixed"],
+  },
+};
+
+export const GRADE_PRACTICE_RULES = {
+  1: {
+    availableModes: ["arithmetic", "mix"],
+    mixModes: ["arithmetic"],
+  },
+  2: {
+    availableModes: ["arithmetic", "mix"],
+    mixModes: ["arithmetic"],
+  },
+  3: {
+    availableModes: ["arithmetic", "fraction", "decimal", "mix"],
+    mixModes: ["arithmetic", "fraction", "decimal"],
+  },
+  4: {
+    availableModes: ["arithmetic", "fraction", "decimal", "mix"],
+    mixModes: ["arithmetic", "fraction", "decimal"],
+  },
+  5: {
+    availableModes: ["arithmetic", "fraction", "decimal", "mix"],
+    mixModes: ["arithmetic", "fraction", "decimal"],
+  },
+  6: {
+    availableModes: ["arithmetic", "fraction", "decimal", "mix"],
+    mixModes: ["arithmetic", "fraction", "decimal"],
   },
 };
 
@@ -218,6 +253,8 @@ export const PROBLEM_META = {
     multiply: { standardCodes: ["2수01-11"], skillName: "구구단 곱셈" },
     divide: { standardCodes: [], skillName: "나머지 없는 나눗셈" },
     mixed: { standardCodes: [], skillName: "자연수 혼합계산" },
+    fraction: { standardCodes: [], skillName: "분수 기초" },
+    decimal: { standardCodes: [], skillName: "소수 기초" },
   },
   middle: {
     add: { standardCodes: ["4수01-03"], skillName: "세 자리 수 덧셈" },
@@ -225,6 +262,8 @@ export const PROBLEM_META = {
     multiply: { standardCodes: ["4수01-04"], skillName: "자연수 곱셈" },
     divide: { standardCodes: ["4수01-06"], skillName: "나머지 없는 나눗셈" },
     mixed: { standardCodes: [], skillName: "자연수 혼합계산" },
+    fraction: { standardCodes: ["4수01-10"], skillName: "분수의 이해와 계산" },
+    decimal: { standardCodes: ["4수01-11"], skillName: "소수의 이해와 계산" },
   },
   upper: {
     add: { standardCodes: ["4수01-03"], skillName: "자연수 덧셈 복습" },
@@ -232,6 +271,8 @@ export const PROBLEM_META = {
     multiply: { standardCodes: ["4수01-04"], skillName: "자연수 곱셈 복습" },
     divide: { standardCodes: ["4수01-06"], skillName: "나머지 없는 나눗셈 복습" },
     mixed: { standardCodes: ["6수01-01"], skillName: "자연수 혼합계산" },
+    fraction: { standardCodes: ["6수01-05"], skillName: "분수 계산" },
+    decimal: { standardCodes: ["6수01-13"], skillName: "소수 계산" },
   },
 };
 
@@ -248,6 +289,14 @@ export function normalizeMode(mode) {
   return MODE_IDS.includes(mode) ? mode : DEFAULT_MODE;
 }
 
+export function isPracticeMode(mode) {
+  return PRACTICE_MODE_IDS.includes(mode);
+}
+
+export function isArithmeticMode(mode) {
+  return ARITHMETIC_MODE_IDS.includes(mode);
+}
+
 export function getGrade(grade) {
   return GRADES.find((item) => item.id === normalizeGrade(grade)) ?? GRADES[0];
 }
@@ -258,7 +307,9 @@ export function getTier(tier) {
 
 export function getOperation(mode) {
   const normalizedMode = normalizeMode(mode);
-  return OPERATIONS.find((operation) => operation.id === normalizedMode) ?? MIXED_OPERATION;
+  return OPERATIONS.find((operation) => operation.id === normalizedMode)
+    ?? ARITHMETIC_OPERATIONS.find((operation) => operation.id === normalizedMode)
+    ?? MIXED_OPERATION;
 }
 
 export function getGradeRule(grade, tier) {
@@ -266,11 +317,15 @@ export function getGradeRule(grade, tier) {
 }
 
 export function getAvailableModeIds(grade) {
-  return GRADE_OPERATION_RULES[normalizeGrade(grade)].availableModes;
+  return GRADE_PRACTICE_RULES[normalizeGrade(grade)].availableModes;
 }
 
 export function getMixModeIds(grade) {
   return GRADE_OPERATION_RULES[normalizeGrade(grade)].mixModes;
+}
+
+export function getPracticeMixModeIds(grade) {
+  return GRADE_PRACTICE_RULES[normalizeGrade(grade)].mixModes;
 }
 
 export function isModeAvailableForGrade(mode, grade) {
@@ -280,7 +335,15 @@ export function isModeAvailableForGrade(mode, grade) {
     return normalizeGrade(grade) >= 5;
   }
 
-  return getAvailableModeIds(grade).includes(normalizedMode);
+  if (isPracticeMode(normalizedMode)) {
+    return getAvailableModeIds(grade).includes(normalizedMode);
+  }
+
+  if (isArithmeticMode(normalizedMode)) {
+    return GRADE_OPERATION_RULES[normalizeGrade(grade)].availableModes.includes(normalizedMode);
+  }
+
+  return false;
 }
 
 export function normalizeModeForGrade(mode, grade) {

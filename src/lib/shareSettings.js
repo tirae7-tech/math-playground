@@ -13,14 +13,26 @@ const LEGACY_LEVEL_MAP = {
   challenge: "high",
 };
 
-const SHARE_MODE_IDS = ["add", "subtract", "multiply", "divide", "mix"];
+const SHARE_MODE_IDS = [
+  "arithmetic",
+  "fraction",
+  "decimal",
+  "mix",
+  "add",
+  "subtract",
+  "multiply",
+  "divide",
+];
+const LEGACY_ARITHMETIC_MODES = ["add", "subtract", "multiply", "divide"];
 
 function normalizeShareMode(mode, grade) {
   if (!SHARE_MODE_IDS.includes(mode)) {
     return DEFAULT_MODE;
   }
 
-  return normalizeModeForGrade(mode, grade);
+  const nextMode = LEGACY_ARITHMETIC_MODES.includes(mode) ? "arithmetic" : mode;
+
+  return normalizeModeForGrade(nextMode, grade);
 }
 
 export function readSettingsFromSearch(search) {
