@@ -285,6 +285,10 @@ input:disabled {
   gap: 9px;
 }
 
+.operation-grid .choice-button:last-child {
+  grid-column: 1 / -1;
+}
+
 .tier-grid,
 .difficulty-grid {
   grid-template-columns: 1fr;

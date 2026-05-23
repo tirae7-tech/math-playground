@@ -8,7 +8,7 @@
 
 - 1~6학년 선택
 - 기초/표준/도전 수준 선택
-- 연습 모드 선택: 사칙연산, 분수, 소수, 섞어서
+- 연습 모드 선택: 덧셈, 뺄셈, 곱셈, 나눗셈, 분수, 소수, 섞어서
 - 학년과 수준에 맞는 10문제 랜덤 생성
 - 정답/오답 즉시 피드백
 - 결과 화면에서 별점과 격려 문구 표시
@@ -55,7 +55,9 @@
 ## 공유 URL 예시
 
 ```txt
-/?grade=1&tier=low&mode=arithmetic
+/?grade=1&tier=low&mode=add
+/?grade=2&tier=middle&mode=multiply
+/?grade=3&tier=middle&mode=divide
 /?grade=3&tier=middle&mode=fraction
 /?grade=4&tier=middle&mode=decimal
 /?grade=5&tier=high&mode=mix
@@ -65,11 +67,11 @@
 
 - `grade`: `1`, `2`, `3`, `4`, `5`, `6`
 - `tier`: `low`, `middle`, `high`
-- `mode`: `arithmetic`, `fraction`, `decimal`, `mix`
+- `mode`: `add`, `subtract`, `multiply`, `divide`, `fraction`, `decimal`, `mix`
 
-잘못된 값이 들어오면 기본값인 `grade=1`, `tier=low`, `mode=mix`가 사용됩니다. 1~2학년에서 분수나 소수 모드가 들어오면 학년에 맞게 `mix`로 처리합니다.
+잘못된 값이 들어오면 기본값인 `grade=1`, `tier=low`, `mode=mix`가 사용됩니다. 학년에 맞지 않는 모드가 들어오면 `mode=mix`로 처리합니다.
 
-기존 공유 URL도 최대한 호환합니다. 예전 `mode=add`, `mode=multiply` 같은 링크는 사칙연산 모드로 처리합니다.
+기존 공유 URL도 최대한 호환합니다. 예전 `mode=arithmetic` 링크는 학년 수준에 맞는 자연수 사칙연산 섞기 모드처럼 처리합니다.
 
 ## 개인정보 안내
 
@@ -127,6 +129,7 @@ npm run preview
 예시:
 
 ```txt
+https://배포주소.vercel.app/?grade=3&tier=middle&mode=divide
 https://배포주소.vercel.app/?grade=3&tier=middle&mode=fraction
 https://배포주소.vercel.app/?grade=5&tier=high&mode=mix
 ```
@@ -145,7 +148,7 @@ https://배포주소.vercel.app/?grade=5&tier=high&mode=mix
 
 ```txt
 https://배포주소.netlify.app/?grade=4&tier=middle&mode=decimal
-https://배포주소.netlify.app/?grade=6&tier=low&mode=arithmetic
+https://배포주소.netlify.app/?grade=6&tier=low&mode=divide
 ```
 
 ### GitHub Pages

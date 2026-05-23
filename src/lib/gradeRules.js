@@ -2,7 +2,16 @@ export const DEFAULT_GRADE = 1;
 export const DEFAULT_TIER = "low";
 export const DEFAULT_MODE = "mix";
 
-export const PRACTICE_MODE_IDS = ["arithmetic", "fraction", "decimal", "mix"];
+export const PRACTICE_MODE_IDS = [
+  "arithmetic",
+  "add",
+  "subtract",
+  "multiply",
+  "divide",
+  "fraction",
+  "decimal",
+  "mix",
+];
 export const ARITHMETIC_MODE_IDS = ["add", "subtract", "multiply", "divide", "mixed"];
 export const MODE_IDS = [...PRACTICE_MODE_IDS, ...ARITHMETIC_MODE_IDS];
 
@@ -13,18 +22,25 @@ export const OPERATION_SYMBOLS = {
   divide: "÷",
 };
 
-export const OPERATIONS = [
-  { id: "arithmetic", label: "사칙연산", symbol: "+−×÷", helper: "자연수 계산 연습" },
-  { id: "fraction", label: "분수", symbol: "1/2", helper: "분수 읽기와 계산" },
-  { id: "decimal", label: "소수", symbol: "0.5", helper: "소수 읽기와 계산" },
-  { id: "mix", label: "섞어서", symbol: "★", helper: "학년에 맞게 골고루" },
-];
+export const ARITHMETIC_GROUP_OPERATION = {
+  id: "arithmetic",
+  label: "사칙연산",
+  symbol: "+−×÷",
+  helper: "학년 수준 자연수 계산",
+};
 
 export const ARITHMETIC_OPERATIONS = [
   { id: "add", label: "덧셈", symbol: "+", helper: "더하기 연습" },
   { id: "subtract", label: "뺄셈", symbol: "-", helper: "빼기 연습" },
   { id: "multiply", label: "곱셈", symbol: "×", helper: "곱하기 연습" },
   { id: "divide", label: "나눗셈", symbol: "÷", helper: "나누기 연습" },
+];
+
+export const OPERATIONS = [
+  ...ARITHMETIC_OPERATIONS,
+  { id: "fraction", label: "분수", symbol: "1/2", helper: "분수 읽기와 계산" },
+  { id: "decimal", label: "소수", symbol: "0.5", helper: "소수 읽기와 계산" },
+  { id: "mix", label: "섞어서", symbol: "★", helper: "학년에 맞게 골고루" },
 ];
 
 export const MIXED_OPERATION = {
@@ -78,28 +94,28 @@ export const GRADE_OPERATION_RULES = {
 
 export const GRADE_PRACTICE_RULES = {
   1: {
-    availableModes: ["arithmetic", "mix"],
-    mixModes: ["arithmetic"],
+    availableModes: ["arithmetic", "add", "subtract", "mix"],
+    mixModes: ["add", "subtract"],
   },
   2: {
-    availableModes: ["arithmetic", "mix"],
-    mixModes: ["arithmetic"],
+    availableModes: ["arithmetic", "add", "subtract", "multiply", "mix"],
+    mixModes: ["add", "subtract", "multiply"],
   },
   3: {
-    availableModes: ["arithmetic", "fraction", "decimal", "mix"],
-    mixModes: ["arithmetic", "fraction", "decimal"],
+    availableModes: ["arithmetic", "add", "subtract", "multiply", "divide", "fraction", "decimal", "mix"],
+    mixModes: ["add", "subtract", "multiply", "divide", "fraction", "decimal"],
   },
   4: {
-    availableModes: ["arithmetic", "fraction", "decimal", "mix"],
-    mixModes: ["arithmetic", "fraction", "decimal"],
+    availableModes: ["arithmetic", "add", "subtract", "multiply", "divide", "fraction", "decimal", "mix"],
+    mixModes: ["add", "subtract", "multiply", "divide", "fraction", "decimal"],
   },
   5: {
-    availableModes: ["arithmetic", "fraction", "decimal", "mix"],
-    mixModes: ["arithmetic", "fraction", "decimal"],
+    availableModes: ["arithmetic", "add", "subtract", "multiply", "divide", "fraction", "decimal", "mix"],
+    mixModes: ["add", "subtract", "multiply", "divide", "mixed", "fraction", "decimal"],
   },
   6: {
-    availableModes: ["arithmetic", "fraction", "decimal", "mix"],
-    mixModes: ["arithmetic", "fraction", "decimal"],
+    availableModes: ["arithmetic", "add", "subtract", "multiply", "divide", "fraction", "decimal", "mix"],
+    mixModes: ["add", "subtract", "multiply", "divide", "mixed", "fraction", "decimal"],
   },
 };
 
@@ -307,6 +323,10 @@ export function getTier(tier) {
 
 export function getOperation(mode) {
   const normalizedMode = normalizeMode(mode);
+  if (normalizedMode === "arithmetic") {
+    return ARITHMETIC_GROUP_OPERATION;
+  }
+
   return OPERATIONS.find((operation) => operation.id === normalizedMode)
     ?? ARITHMETIC_OPERATIONS.find((operation) => operation.id === normalizedMode)
     ?? MIXED_OPERATION;

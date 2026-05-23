@@ -11,6 +11,14 @@ import {
 import ShareButton from "./ShareButton.jsx";
 
 function getUnavailableOperationMessage(operationId, gradeId) {
+  if (operationId === "multiply" && gradeId === 1) {
+    return "2학년부터";
+  }
+
+  if (operationId === "divide" && gradeId <= 2) {
+    return "3학년부터";
+  }
+
   if ((operationId === "fraction" || operationId === "decimal") && gradeId <= 2) {
     return "3학년부터";
   }

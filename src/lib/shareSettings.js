@@ -15,24 +15,21 @@ const LEGACY_LEVEL_MAP = {
 
 const SHARE_MODE_IDS = [
   "arithmetic",
-  "fraction",
-  "decimal",
-  "mix",
   "add",
   "subtract",
   "multiply",
   "divide",
+  "fraction",
+  "decimal",
+  "mix",
 ];
-const LEGACY_ARITHMETIC_MODES = ["add", "subtract", "multiply", "divide"];
 
 function normalizeShareMode(mode, grade) {
   if (!SHARE_MODE_IDS.includes(mode)) {
     return DEFAULT_MODE;
   }
 
-  const nextMode = LEGACY_ARITHMETIC_MODES.includes(mode) ? "arithmetic" : mode;
-
-  return normalizeModeForGrade(nextMode, grade);
+  return normalizeModeForGrade(mode, grade);
 }
 
 export function readSettingsFromSearch(search) {
