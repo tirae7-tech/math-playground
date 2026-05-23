@@ -514,7 +514,7 @@ function generateFractionComparison({ grade, tier }) {
   return buildFractionProblem({
     grade,
     tier,
-    questionText: `더 큰 분수는 몇 번일까요? 1) ${firstText}  2) ${secondText}`,
+    questionText: `더 큰 분수는 몇 번일까요?\n1) ${firstText}\n2) ${secondText}`,
     answer,
     explanation: `${firstText}와 ${secondText}의 크기를 비교하면 ${answer === 1 ? firstText : secondText}가 더 커요.`,
     skillName: "분수 크기 비교",
@@ -717,7 +717,7 @@ function generateDecimalReading({ grade, tier }) {
   return buildDecimalProblem({
     grade,
     tier,
-    questionText: `더 큰 소수는 몇 번일까요? 1) ${value}  2) ${secondValue}`,
+    questionText: `더 큰 소수는 몇 번일까요?\n1) ${value}\n2) ${secondValue}`,
     answer,
     explanation: `소수 첫째 자리 숫자를 비교하면 ${answer === 1 ? value : secondValue}가 더 커요.`,
     skillName: "소수 크기 비교",

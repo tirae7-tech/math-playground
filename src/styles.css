@@ -601,6 +601,7 @@ input:disabled {
   line-height: 1.12;
   text-align: center;
   overflow-wrap: anywhere;
+  white-space: pre-line;
 }
 
 .question-text[data-length="medium"] {
@@ -928,6 +929,7 @@ input:disabled {
   color: #17324b;
   font-size: 1.12rem;
   line-height: 1.35;
+  white-space: pre-line;
 }
 
 .skill-tag {
